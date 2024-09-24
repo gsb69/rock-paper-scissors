@@ -9,7 +9,7 @@ function getComputerChoice(){
 }
 function getHumanChoice(){
     let your=(prompt("enter a choice")).toLowerCase();
-    if(!choice)return 'not valid';
+    if(!choice.includes(your))return 'not valid';
     return your;
 }
 function playRound(humanChoice,computerChoice){
@@ -26,13 +26,30 @@ function playRound(humanChoice,computerChoice){
         if(computerChoice=='paper')humanScore++;
         else if(computerChoice=='rock')computerScore++;
     }
-    if(h!=humanScore)console.log('you won! '+humanChoice+" beats "+computerChoice);
-    else if(c!=computerScore) console.log("you lost! "+computerChoice+" beats "+humanChoice);
-    else console.log("draw");
+    if(h!=humanScore){
+        console.log('you won! '+humanChoice+" beats "+computerChoice);
+        alert('you won! '+humanChoice+" beats "+computerChoice);
+    }
+    else if(c!=computerScore){
+         console.log("you lost! "+computerChoice+" beats "+humanChoice);
+         alert("you lost! "+computerChoice+" beats "+humanChoice);
+    }
+    else {
+        console.log("draw");
+        alert("draw");
+    }
 }
     for(let i=0;i<5;i++)playRound(getHumanChoice(),getComputerChoice());
-    if(humanScore>computerScore)console.log('you won! '+humanScore+" : "+computerScore);
-    else if(computerScore>humanScore)console.log('you lost! '+humanScore+" : "+computerScore);
-    else console.log("Draw");
+    if(humanScore>computerScore){
+        document.getElementById('results').innerHTML='you won! '+humanScore+" : "+computerScore;
+        console.log('you won! '+humanScore+" : "+computerScore);
+    }
+    else if(computerScore>humanScore){
+        document.getElementById('results').innerHTML='you lost! '+humanScore+" : "+computerScore;
+        console.log('you lost! '+humanScore+" : "+computerScore);
+    }
+    else{
+         document.getElementById('results').innerHTML="It's a draw! "+humanScore+" : "+computerScore;
+         console.log("It's a draw! "+humanScore+" : "+computerScore);
+    }
 }
-playGame();
