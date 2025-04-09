@@ -1,55 +1,77 @@
 
-function playGame(){
+const rock=document.createElement("button");
+rock.textContent="rock";
+const paper=document.createElement("button");
+paper.textContent="paper";
+const scissor=document.createElement("button");
+scissor.textContent="scissor";
+const container=document.querySelector(".container")
+container.appendChild(rock);
+container.appendChild(paper);
+container.appendChild(scissor);
+const buttons=document.querySelectorAll("button");
 let humanScore=0,computerScore=0;
-let choice=['rock','paper','scissor'];
-function getComputerChoice(){
-    
-    let ind= Math.floor(Math.random()*choice.length);
-    return choice[ind];
-}
-function getHumanChoice(){
-    let your=(prompt("enter a choice")).toLowerCase();
-    if(!choice.includes(your))return 'not valid';
-    return your;
-}
-function playRound(humanChoice,computerChoice){
-    let h=humanScore,c=computerScore;
-    if(humanChoice=='rock'){
-        if(computerChoice=='paper')computerScore++;
-        else if(computerChoice=='scissor')humanScore++;
-    }
-    else if(humanChoice=='paper'){
-        if(computerChoice=='rock')humanScore++;
-        else if(computerChoice=='scissor')computerScore++;
-    }
-    else if(humanChoice=='scissor'){
-        if(computerChoice=='paper')humanScore++;
-        else if(computerChoice=='rock')computerScore++;
-    }
-    if(h!=humanScore){
-        console.log('you won! '+humanChoice+" beats "+computerChoice);
-        alert('you won! '+humanChoice+" beats "+computerChoice);
-    }
-    else if(c!=computerScore){
-         console.log("you lost! "+computerChoice+" beats "+humanChoice);
-         alert("you lost! "+computerChoice+" beats "+humanChoice);
-    }
-    else {
-        console.log("draw");
-        alert("draw");
-    }
-}
-    for(let i=0;i<5;i++)playRound(getHumanChoice(),getComputerChoice());
-    if(humanScore>computerScore){
-        document.getElementById('results').innerHTML='you won! '+humanScore+" : "+computerScore;
-        console.log('you won! '+humanScore+" : "+computerScore);
-    }
-    else if(computerScore>humanScore){
-        document.getElementById('results').innerHTML='you lost! '+humanScore+" : "+computerScore;
-        console.log('you lost! '+humanScore+" : "+computerScore);
-    }
-    else{
-         document.getElementById('results').innerHTML="It's a draw! "+humanScore+" : "+computerScore;
-         console.log("It's a draw! "+humanScore+" : "+computerScore);
-    }
-}
+const Array=['rock','paper','scissor'];
+const result=document.createElement("h1");
+container.appendChild(result);
+
+buttons.forEach((btn)=>{
+    btn.addEventListener("click",(e)=>{
+        const humanChoice=e.target.textContent;
+        const computerChoice=Array[Math.floor(Math.random()*Array.length)];
+        if(humanChoice==='rock'){
+            if(computerChoice==='paper'){
+                computerScore++;
+                result.innerHTML="you lost <br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+                
+            }
+            else if(computerChoice==='scissor'){
+                humanScore++;
+                result.innerHTML="you won <br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+                
+            }
+            else result.innerHTML="draw <br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+        }
+        if(humanChoice==='paper'){
+            if(computerChoice==='rock'){
+                humanScore++;
+                result.innerHTML="you won <br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+                
+            }
+            else if(computerChoice==='scissor'){
+                computerScore++;
+                result.innerHTML="you lost <br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+                
+            }
+            else result.innerHTML="draw <br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+        }
+        if(humanChoice==='scissor'){
+            if(computerChoice==='rock'){
+                computerScore++;
+                result.innerHTML="you lost <br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+                
+            }
+            else if(computerChoice==='paper'){
+                humanScore++;
+                result.innerHTML="you won <br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+                
+            }
+            else result.innerHTML="draw <br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+        }
+        if(humanScore==5){
+            result.innerHTML="you won the match <br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+            humanScore=0;
+            computerScore=0;
+        }
+        else if(computerScore==5){
+            result.innerHTML="you lost the match<br>"+humanChoice+ " : " +computerChoice+"<br>"+humanScore+" : "+computerScore;
+            humanScore=0;
+            computerScore=0;
+        }
+        
+    });
+
+
+});
+
+
